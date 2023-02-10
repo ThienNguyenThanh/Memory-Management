@@ -23,7 +23,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'social_django',
-    'social'
+    'social',
+    'memory'
 ]
 
 MIDDLEWARE = [
