@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
-from memory.models import Memory
+from memory.models import Memory, Images
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
+
+import json
 
 def login_view(request):
     if(request.method == "POST"):
@@ -24,11 +26,15 @@ def home_view(request):
     search_q = request.GET.get('q')
     memory_queryset = None
     if(search_q is not None):
-        memory_queryset = Memory.objects.filter(location__contains=search_q).values()
+        memory_queryset = Memory.objects.filter(user=request.user).filter(location__contains=search_q).values()
     else:
-        memory_queryset = Memory.objects.all()
+        memory_queryset = Memory.objects.filter(user=request.user)
+        # for mem in memory_queryset:
+        #     print(mem)
+            # images = Images.objects.filter(memory_id=mem.id)
+            # print(images[0].img_url)
 
-    print(request.POST.get('username'))
+
     context = {
         'memory_list': memory_queryset
     }
