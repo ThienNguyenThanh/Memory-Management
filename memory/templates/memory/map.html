@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="container">
+        <h3>Step 1: Mark Places</h3>
+        <div class="row mt-4">
+            <div class="col-md-10 offset-md-1">
+                {{ m|safe }}
+            </div>
+        </div>
+
+        <form class="form-inline my-2 my-lg-0" method="GET" action="">
+            
+            <input type="text" name="q" placeholder="Search location...">
+            <button class="btn btn-outline-success my-2 my-sm-0 mx-3" type="submit">Search</button>
+        </form>
+
+        {% if location%}
+        <form class="form-inline my-2 my-lg-0" method="GET" action="{% url 'creat_memory'%}">
+            {% csrf_token %}
+            <h3>You visited: {{location}} ?</h>
+            <button class="btn btn-outline-success my-2 my-sm-0 mx-3" type="submit" value="{{location_details}}" name="map">Yes</button>
+        </form>
+        
+        {% endif%}
+       
+    </div>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+        crossorigin="anonymous"></script>
+
+{% endblock content %}
