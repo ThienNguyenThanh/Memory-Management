@@ -1,15 +1,18 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
-from django.core.files.storage import default_storage
-
-from memory.models import Memory, Images
-from .utils import resize_img, upload_img, get_img
-import folium
-import geocoder
 import json
 
+import folium
+import geocoder
+from django.contrib.auth.decorators import login_required
+from django.core.files.storage import default_storage
+from django.http import HttpResponse
+from django.shortcuts import redirect, render
 
+from memory.models import Images, Memory
+
+from .utils import get_img, resize_img, upload_img
+
+
+@login_required
 def map_view(request):
     form = None
     location = None
@@ -40,7 +43,7 @@ def map_view(request):
     }
     return render(request, 'memory/map.html', context)
 
-
+@login_required
 def create_memory_view(request):
     location = request.GET.get('map', None)
     if location:
@@ -76,6 +79,7 @@ def create_memory_view(request):
 
     return render(request, 'memory/create_memory.html', context=context)
 
+@login_required
 def memory_detail_view(request, user_id=None, mem_id=None):
     memory_obj = None
     if(mem_id):
