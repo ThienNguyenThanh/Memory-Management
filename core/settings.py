@@ -47,7 +47,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
-    'social_django.middleware.SocialAuthExceptionMiddleware'    #login with facebook
+    'social_django.middleware.SocialAuthExceptionMiddleware',    #login with facebook
     'whitenoise.middleware.WhiteNoiseMiddleware' # whitenoise
 ]
 
