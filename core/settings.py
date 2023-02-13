@@ -1,8 +1,12 @@
-from pathlib import Path
 import os
+from pathlib import Path
+
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+load_dotenv(BASE_DIR / '.env')
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-(wr$4%8l#gb2%24h&_+qqg%tdt5mxyq^)pz(3xwim1i-ogj9p_'
@@ -131,8 +135,8 @@ LOGIN_REDIRECT_URL = 'home'
 LOGOUT_URL = 'logout'
 LOGOUT_REDIRECT_URL = 'login'
 
-SOCIAL_AUTH_FACEBOOK_KEY = "902880900916948"
-SOCIAL_AUTH_FACEBOOK_SECRET = "e7f8f82aa38b00bbe42e7b7b5d73c652"
+SOCIAL_AUTH_FACEBOOK_KEY = os.getenv("SOCIAL_AUTH_FACEBOOK_KEY") # "902880900916948"
+SOCIAL_AUTH_FACEBOOK_SECRET = os.getenv("SOCIAL_AUTH_FACEBOOK_SECRET") #"e7f8f82aa38b00bbe42e7b7b5d73c652"
 
 #Extra data
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
