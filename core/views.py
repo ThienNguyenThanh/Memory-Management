@@ -1,9 +1,17 @@
-from django.shortcuts import render, redirect
-from memory.models import Memory, Images
+from django.contrib.auth import authenticate, forms, login
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, login
+from django.shortcuts import redirect, render
 
-import json
+from memory.models import Images, Memory
+
+
+def signup_view(request):
+    new_user_form = forms.UserCreationForm(request.POST or None)
+    if new_user_form.is_valid():
+        user = new_user_form.save()
+        return redirect("/login")
+    context = {"form": new_user_form}
+    return render(request, 'signup.html', context)
 
 def login_view(request):
     if(request.method == "POST"):
