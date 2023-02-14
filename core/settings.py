@@ -27,15 +27,22 @@ if RENDER_EXTERNAL_HOSTNAME:
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
+    'django.contrib.sites',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
     'crispy_forms',
-    'social_django',
     'social.apps.SocialConfig',
-    'memory.apps.MemoryConfig'
+    'memory.apps.MemoryConfig',
+
+    # 3rd party
+    "allauth",
+    "allauth.account", 
+    "allauth.socialaccount", 
+    # social providers
+    "allauth.socialaccount.providers.facebook",
 ]
 
 MIDDLEWARE = [
@@ -65,8 +72,8 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 
-                'social_django.context_processors.login_redirect',
-                'social_django.context_processors.backends'   #login with facebook
+                # 'social_django.context_processors.login_redirect',
+                # 'social_django.context_processors.backends'   #login with facebook
             ],
         },
     },
@@ -144,10 +151,33 @@ MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTHENTICATION_BACKENDS = [
-  'social_core.backends.facebook.FacebookOAuth2',
-  'django.contrib.auth.backends.ModelBackend'
-]
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    "allauth.account.auth_backends.AuthenticationBackend",
+)
+
+SITE_ID = 1
+ACCOUNT_EMAIL_VERIFICATION = "none"
+LOGIN_REDIRECT_URL = "home"
+ACCOUNT_LOGOUT_ON_GET = True
+
+SOCIALACCOUNT_PROVIDERS = {
+    'facebook': {
+        'FIELDS': [
+            'id',
+            'first_name',
+            'last_name',
+            'middle_name',
+            'name',
+            'name_format',
+            'picture',
+            'short_name'
+        ],
+    }
+}
+
+
+
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'

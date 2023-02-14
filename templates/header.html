@@ -17,35 +17,34 @@
           <input type="search" class="form-control" placeholder="Search by location..." aria-label="Search" name="q">
         </form>
         
-        {% if not backends.associated%}
+        
           <div class="dropdown text-end">
               <a href="#" class="d-block link-red text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="https://firebasestorage.googleapis.com/v0/b/saritasa-python-test.appspot.com/o/images%2Favatar.png?alt=media" alt="mdo" width="32" height="32" class="rounded-circle">
-              </a>
-              <ul class="dropdown-menu text-small">
-                <li><a class="dropdown-item" href="#">Hi, {{ user.username }}</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
-              </ul>
-            </div>
-        {% endif%}
+                <img 
+                    {% if user.socialaccount_set.all.0.get_avatar_url %}
+                      src="{{user.socialaccount_set.all.0.get_avatar_url}}&access_token=902880900916948|e7f8f82aa38b00bbe42e7b7b5d73c652"
+                    {% else%}
+                      src="https://firebasestorage.googleapis.com/v0/b/saritasa-python-test.appspot.com/o/images%2Favatar.png?alt=media"
+                    {% endif%}
 
-        <!-- Login with facebook-->
-        {% for ass in backends.associated %}
-          {% if ass.provider == 'facebook' %}
-            <div class="dropdown text-end">
-              <a href="#" class="d-block link-red text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="{{ass.extra_data.picture.data.url}}" alt="mdo" width="32" height="32" class="rounded-circle">
+                    alt='Avatar'
+                    width="32" height="32" class="rounded-circle">
               </a>
               <ul class="dropdown-menu text-small">
-                <li><a class="dropdown-item" href="#">Hi, {{ ass.extra_data.name }}</a></li>
+                <li>
+                  <a class="dropdown-item" href="#">
+                    Hi, {% if user.first_name and user.last_name %} 
+                          {{user.first_name}} {{user.last_name}}
+                        {% else %}
+                          {{ user.username }} 
+                        {% endif %}
+
+                  </a>
+                </li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
               </ul>
-            </div>
-          {% endif %}
-        {% endfor %}
-          
+            </div>      
       </div>
     </div>
   </header>
