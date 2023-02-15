@@ -15,26 +15,22 @@
     </div>
 
     <div class="row">
-        {% if not backends.associated%}
+        
             <div class="col-md-6 text-center">
-                <img src="https://firebasestorage.googleapis.com/v0/b/saritasa-python-test.appspot.com/o/images%2Favatar.png?alt=media" alt="" width="150" height="150" style="border-radius: 50%">
+                <img {% if user.socialaccount_set.all.0.get_avatar_url %}
+                src="{{user.socialaccount_set.all.0.get_avatar_url}}&access_token=1472281443181117|a5f871ebdeec9d990257aa03080f469e"
+              {% else%}
+                src="https://firebasestorage.googleapis.com/v0/b/saritasa-python-test.appspot.com/o/images%2Favatar.png?alt=media"
+              {% endif%} alt="" width="150" height="150" style="border-radius: 50%">
             </div>
             <div class="col-md-6 social-container my-2">                 
-                <p> Your name: {{ user.username }} </p>
+                <p> Your name: {% if user.first_name and user.last_name %} 
+                                    {{user.first_name}} {{user.last_name}}
+                                {% else %}
+                                    {{ user.username }} 
+                                {% endif %}
+                </p>
             </div>
-        {% endif %}
-            
-        {% for ass in backends.associated %}
-            {% if ass.provider == 'facebook' %}
-                <div class="col-md-6 text-center">
-                    <img src="{{ass.extra_data.picture.data.url}}" alt="" width="150" height="150" style="border-radius: 50%">
-                </div>
-                <div class="col-md-6 social-container my-2">                 
-                    <p> You're Signed in via {{ ass.provider }} </p>
-                    <p> Your Name:  {{ ass.extra_data.name }} </p>
-                </div>
-            {% endif %}
-        {% endfor %}
       </div>
 
 
