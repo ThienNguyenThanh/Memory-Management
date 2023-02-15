@@ -57,5 +57,20 @@ Features:
 <!-- GETTING STARTED -->
 ## Run locally
 
-### Not avaiable currently :cry:
+### Prerequisites
+
+_Install docker and login docker via terminal._
+
+Then
+1. Pull docker image
+   ```sh
+   docker pull thien0611/saritasa-memory:v1
+   ```
+2. Build container
+   ```sh
+   docker run -d --name django-heroku -e "PORT=8765" -e "DEBUG=1" -p 8000:8765 thien0611/saritasa-memory:v1
+   ```
+3. Access the contianer via [http://localhost:8000/](http://localhost:8000/)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
