@@ -38,9 +38,9 @@ Saritasa Memory is a website for storing memories about places that you have vis
 Features:
 - [x] Upload images.
 - [x] Mark places on map.
-- [ ] Login With
+- [x] Login With
     - [x] Signup Account
-    - [ ] Facebook
+    - [x] Facebook
 
 
 
